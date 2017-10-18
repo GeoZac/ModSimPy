@@ -86,7 +86,7 @@ def linrange(start=0, stop=None, step=1, **kwargs):
         start = 0
 
     # TODO: what breaks if we don't make the dtype float?
-    #underride(kwargs, endpoint=True, dtype=np.float64)
+    # underride(kwargs, endpoint=True, dtype=np.float64)
     underride(kwargs, endpoint=True)
 
     # see if any of the arguments has units
@@ -603,7 +603,7 @@ class SubPlots:
         self.axes_seq = axes_seq
         self.current_axes_index = 0
 
-    def current_axes():
+    def current_axes(self):
         return self.axes_seq(self.current_axes_index)
 
     # TODO: consider making SubPlots iterable
