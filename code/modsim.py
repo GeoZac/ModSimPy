@@ -6,7 +6,7 @@ Copyright 2017 Allen Downey
 License: https://creativecommons.org/licenses/by/4.0)
 """
 
-#TODO: check that we have at least version 3.6
+# TODO: check that we have at least version 3.6
 
 import inspect
 
@@ -868,8 +868,8 @@ class _Vector(Quantity):
 
     @property
     def mag(self):
-        """Returns the magnitude with units."""
-        return np.sqrt(np.dot(self, self)) * self.units
+        """Returns the magnitude"""
+        return np.sqrt(np.dot(self, self))
 
     @property
     def mag2(self):
@@ -916,7 +916,7 @@ class _Vector(Quantity):
         return np.dot(self, other.hat()) * other.units
 
     def dist(self, other):
-        """Euclidean distance from self to other, with units."""
+        """Euclidean distance from self to other."""
         diff = self - other
         return diff.mag
 
@@ -926,9 +926,7 @@ class _Vector(Quantity):
         if len(self) == 2:
             return self.angle - other.angle
         else:
-            #TODO: see http://www.euclideanspace.com/maths/algebra/vectors/angleBetween/
-            raise NotImplementedError()
-        
+            return np.arccos(np.dot(self, other)/self.mag * other.mag)
         
 def Vector(*args, units=None):
     # if there's only one argument, it should be iterable
