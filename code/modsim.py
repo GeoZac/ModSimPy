@@ -11,8 +11,8 @@ logger = logging.getLogger(name='modsim.py')
 
 # make sure we have Python 3.6 or better
 import sys
-if sys.version_info < (3, 6):
-    logger.warn('modsim.py depends on Python 3.6 features.')
+if sys.version_info < (3, 5, 2):
+    logger.warning('modsim.py depends on Python 3.6 features.')
 
 import inspect
 import matplotlib.pyplot as plt
@@ -268,7 +268,7 @@ def run_odeint(system, slope_func, **kwargs):
                  initial conditions in system and t=0, and I got
                  the following error:"""
         logger.error(msg)
-        raise(e)
+        raise e
     
     # when odeint calls slope_func, it should pass `system` as
     # the third argument.  To make that work, we have to make a
@@ -354,7 +354,7 @@ def fsolve(func, x0, *args, **kwargs):
                  running the function you provided with the x0
                  you provided, and I got the following error:"""
         logger.error(msg)
-        raise(e)
+        raise e
     
     # make the tolerance more forgiving than the default
     underride(kwargs, xtol=1e-7)
@@ -542,10 +542,10 @@ def contour(df, **options):
 
     df: DataFrame
     """
-    x = results.columns
-    y = results.index
+    x = df.columns
+    y = df.index
     X, Y = np.meshgrid(x, y)
-    cs = plt.contour(X, Y, results, **options)
+    cs = plt.contour(X, Y, df, **options)
     plt.clabel(cs, inline=1, fontsize=10)
 
 
@@ -611,7 +611,7 @@ class SubPlots:
     # TODO: consider making SubPlots iterable
     def next_axes(self):
         self.current_axes_index += 1
-        return current_axes()
+        return self.current_axes()
 
 
 def subplots(*args, **kwargs):
